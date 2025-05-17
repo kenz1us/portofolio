@@ -535,21 +535,30 @@ section,
 }
 
 .resume .resume-item h4 {
-  line-height: 18px;
-  font-size: 18px;
+  line-height: 20px;
+  font-size: 20px;
   font-weight: 600;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   margin-bottom: 10px;
 }
 
-.resume .resume-item h5 {
-  font-size: 16px;
-  padding: 5px 15px;
-  display: inline-block;
+.resume .resume-item p {
+  line-height: 12px;
+  font-size: 14px;
   font-weight: 600;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
   margin-bottom: 10px;
 }
+
+.resume .resume-item h5 {
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
 
 .resume .resume-item ul {
   padding-left: 20px;
