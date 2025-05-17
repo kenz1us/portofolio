@@ -7,13 +7,15 @@
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
 :root { 
-  --background-color: #424553; /* Background color for the entire website, including individual sections */
+  --background-color: #282a36; /* Background color for the entire website, including individual sections */
   --default-color: #f8f8f2; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #f8f8f2; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #ff79c6; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #bd93f9; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #f8f8f2; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-  --contrast-color: #f8f8f2; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+  --contrast-color: #f8f8f2;
+   --nav-hover-color: #ff79c6; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
+
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
@@ -91,6 +93,8 @@ h6 {
   transition: all ease-in-out 0.3s;
   overflow-y: auto;
   z-index: 997;
+  box-shadow: 0 0 15px rgba(189, 147, 249, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-right: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
@@ -424,9 +428,17 @@ section,
 }
 
 .home h2 {
-  margin: 0;
-  font-size: 64px;
-  font-weight: 700;
+  background: linear-gradient(45deg, #c300ff, #bd93f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 10px;
 }
 
 .home p {
@@ -589,78 +601,154 @@ section,
 --------------------------------------------------------------*/
 .galery .galery-filters {
   padding: 0;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 24px auto;
   list-style: none;
   text-align: center;
 }
-
 .galery .galery-filters li {
   cursor: pointer;
   display: inline-block;
-  padding: 0;
-  font-size: 14px;
-  font-weight: 400;
-  margin: 0 10px;
-  line-height: 1;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  transition: all 0.3s ease-in-out;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 14px 10px 14px;
+  padding: 8px 22px;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--default-color);
+  border: 1.5px solid transparent;
+  transition: all 0.25s;
+  letter-spacing: 1px;
 }
-
 .galery .galery-filters li:hover,
 .galery .galery-filters li.filter-active {
   color: var(--accent-color);
+  background: rgba(189,147,249,0.08);
+  border: 1.5px solid var(--accent-color);
 }
 
+/* Gallery Grid */
+.isotope-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 36px; /* sebelumnya 28px, sekarang lebih renggang */
+  padding-bottom: 24px; /
+}
+
+/* Gallery Card */
+.galery-item {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(44,44,84,0.13);
+  background: #393a4a;
+  position: relative;
+  transition: box-shadow 0.3s, transform 0.3s;
+  aspect-ratio: 1/1;
+  display: flex;
+  margin-bottom: 12px;
+  align-items: stretch;
+}
+.galery-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+}
+.galery-content img {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  transition: transform 0.5s cubic-bezier(.4,0,.2,1), filter 0.4s;
+  filter: brightness(0.93) saturate(1.08);
+}
+.galery-content:hover img {
+  transform: scale(1.06) rotate(-1deg);
+  filter: brightness(0.82) blur(1px);
+}
+
+/* Overlay Info */
 .galery-info {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 100%;
+  background: rgba(34, 34, 44, 0.48);
+  border-radius: 14px;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.35s cubic-bezier(.4,0,.2,1), background 0.3s;
+  z-index: 2;
+  pointer-events: none;
+}
+.galery-content:hover .galery-info {
+  opacity: 1;
+  background: rgba(34, 34, 44, 0.72);
+  pointer-events: auto;
 }
 
+/* Overlay Button */
 .preview-link {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: #fff;
+  background: rgba(189,147,249,0.13);
+  padding: 14px 22px;
+  border-radius: 30px;
+  box-shadow: 0 2px 12px rgba(189,147,249,0.08);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  font-weight: 500;
+  font-size: 1.08rem;
+  gap: 4px;
 }
-
 .preview-link i {
-  font-size: 2rem;
-  margin-bottom: 5px;
+  font-size: 2.1rem;
+  margin-bottom: 2px;
+  color: var(--accent-color);
+  transition: color 0.2s;
 }
-
+.preview-link:hover {
+  background: var(--accent-color);
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+}
+.preview-link:hover i {
+  color: #fff;
+}
 .view-details-text {
   font-size: 1rem;
   font-weight: bold;
+  letter-spacing: 0.5px;
 }
 
-.galery-content:hover .galery-info {
-  opacity: 1;
+/* Card Hover Effect */
+.galery-item:hover {
+  box-shadow: 0 16px 36px rgba(189,147,249,0.18), 0 2px 8px rgba(44,44,84,0.10);
+  transform: translateY(-6px) scale(1.025);
 }
 
-.galery-content img {
-  width: 100%; /* Mengisi lebar container */
-  height: 250px; /* Sesuaikan tinggi agar semua sama */
-  object-fit: cover; /* Mencegah gambar terdistorsi */
-  border-radius: 6px; /* Opsional: Membuat sudut lebih halus */
+/* Responsive */
+@media (max-width: 768px) {
+  .isotope-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 12px;
+  }
+  .galery-content img {
+    min-height: 160px;
+  }
+  .galery-item {
+    margin-bottom: 8px;
+  }
 }
 
 .isotope-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px; /* Jarak antar gambar */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
 }
 
 /*--------------------------------------------------------------
@@ -675,16 +763,29 @@ section,
 # Wrapper untuk efek RGB
 --------------------------------------------------------------*/
 .profile-img-container {
-  width: 140px; /* Sesuaikan dengan ukuran gambar */
+  width: 140px;
   height: 140px;
-  padding: 5px; /* Jarak antara gambar dan border */
-  border-radius: 80%;
-  background: linear-gradient(45deg, #ff79c6, #bd93f9, #ff79c6, #bd93f9);
-  background-size: 300% 300%;
+  padding: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3a1859, #5e2e91, #7d3bbd, #2d1a3a);
+  background-size: 200% 200%;
   animation: rgbBorder 3s infinite linear;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  border: none; /* Pastikan tidak ada border */
+}
+
+.profile-img img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: none !important; /* Hapus border putih apapun */
+  background: none !important; /* Hapus background putih apapun */
+  box-shadow: none !important; /* Hapus shadow putih apapun */
 }
 
 .profile-header {
@@ -692,6 +793,64 @@ section,
   align-items: center;
   gap: 15px; /* Jarak antara teks dan status */
 }
+
+/* Animasi Teks Ketik */
+.typed-cursor {
+  color: var(--accent-color);
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Efek Card di Galeri */
+.galery-item {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 1/1; /* Membuat kotak persegi */
+  overflow: hidden;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.galery-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.galery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.galery-item:active .galery-info {
+  opacity: 0.5;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Tombol yang Lebih Menarik */
+.btn-custom {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  transition: all 0.3s;
+}
+
+.btn-custom:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(189, 147, 249, 0.3);
+}
+
 /* Animasi RGB */
 @keyframes rgbBorder {
   0% { background-position: 0% 50%; }
@@ -759,13 +918,18 @@ section,
 }
 
 
-@media (max-width: 768px) { 
-  #image {
-      width: 100vw;  /* Mengisi seluruh lebar viewport */
-      height: auto;
+@media (max-width: 768px) {
+  .header {
+    width: 100%;
+    left: -100%;
+  }
+  .header.header-show {
+    left: 0;
+  }
+  .home h2 {
+    font-size: 2.5rem;
   }
 }
-
 /*--------------------------------------------------------------
 # social links
 --------------------------------------------------------------*/
@@ -783,8 +947,23 @@ section,
 
   text-decoration: none;
   margin: 0 4px; /* Spasi antar ikon */
+  transition: all 0.3s ease;
+  transform: scale(1);
 }
 
+.social-links a:hover {
+  transform: scale(1.2);
+}
+
+/* Efek loading */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+section {
+  animation: fadeIn 0.6s ease-out;
+}
 /* Hover warna sesuai dengan brand */
 .telegram:hover {
   border-radius: 50%;
@@ -814,4 +993,11 @@ section,
   border-radius: 10%;
   background-color: white;
   color: #0077B5;
+}
+
+.parallax-bg {
+  position: absolute;
+  background-attachment: fixed;
+  background-size: cover;
+  /* Tambahkan properti lainnya */
 }
